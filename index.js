@@ -5,20 +5,11 @@ const fs = require('fs');
 const Reader = require('@maxmind/geoip2-node').Reader;
 const validator = require('fluent-validator');
 
-
 console.log(process.env.GEODB_CITY);
 console.log(process.env.GEODB_ASN);
 console.log(process.env.GEODB_COUNTRY);
 
-// const cityDbBuffer = fs.readFileSync(process.env.GEODB_CITY);
-// const asnDbBuffer = fs.readFileSync(process.env.GEODB_ASN);
-// const countryDbBuffer = fs.readFileSync(process.env.GEODB_COUNTRY);
-
-// const cityDb = Reader.openBuffer(cityDbBuffer);
 const cityDb = Reader.open(process.env.GEODB_CITY);
-// const asnDb = Reader.openBuffer(asnDbBuffer);
-// const countryDb = Reader.openBuffer(countryDbBuffer);
-
 const app = express();
 
 const port = process.env.PORT || 80;
