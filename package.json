@@ -1,0 +1,25 @@
+{
+  "name": "geoip-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CLown1331/geoip-api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CLown1331/geoip-api/issues"
+  },
+  "homepage": "https://github.com/CLown1331/geoip-api#readme",
+  "dependencies": {
+    "@maxmind/geoip2-node": "^2.3.2",
+    "dotenv": "^9.0.0",
+    "express": "^4.17.1",
+    "fluent-validator": "^1.1.0"
+  }
+}
