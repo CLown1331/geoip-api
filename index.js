@@ -10,11 +10,12 @@ console.log(process.env.GEODB_CITY);
 console.log(process.env.GEODB_ASN);
 console.log(process.env.GEODB_COUNTRY);
 
-const cityDbBuffer = fs.readFileSync(process.env.GEODB_CITY);
+// const cityDbBuffer = fs.readFileSync(process.env.GEODB_CITY);
 // const asnDbBuffer = fs.readFileSync(process.env.GEODB_ASN);
 // const countryDbBuffer = fs.readFileSync(process.env.GEODB_COUNTRY);
 
-const cityDb = Reader.openBuffer(cityDbBuffer);
+// const cityDb = Reader.openBuffer(cityDbBuffer);
+const cityDb = Reader.open(process.env.GEODB_CITY);
 // const asnDb = Reader.openBuffer(asnDbBuffer);
 // const countryDb = Reader.openBuffer(countryDbBuffer);
 
@@ -27,13 +28,13 @@ app.get('/ping', (req, res) => {
 });
 
 app.get('/locate',
-    (req, res) => {
+    async (req, res) => {
         const isValid = validator().validate(req.query.ip).isIP().check();
         if (!isValid) {
             res.status(400).send('bad ip');
             return;
         }
-        const cityResponse = cityDb.city(req.query.ip);
+        const cityResponse = (await cityDb).city(req.query.ip);
         const result = {
             countryName: cityResponse['country']['names']['en'],
             ...cityResponse['traits'],
