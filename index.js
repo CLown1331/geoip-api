@@ -11,12 +11,12 @@ console.log(process.env.GEODB_ASN);
 console.log(process.env.GEODB_COUNTRY);
 
 const cityDbBuffer = fs.readFileSync(process.env.GEODB_CITY);
-const asnDbBuffer = fs.readFileSync(process.env.GEODB_ASN);
-const countryDbBuffer = fs.readFileSync(process.env.GEODB_COUNTRY);
+// const asnDbBuffer = fs.readFileSync(process.env.GEODB_ASN);
+// const countryDbBuffer = fs.readFileSync(process.env.GEODB_COUNTRY);
 
 const cityDb = Reader.openBuffer(cityDbBuffer);
-const asnDb = Reader.openBuffer(asnDbBuffer);
-const countryDb = Reader.openBuffer(countryDbBuffer);
+// const asnDb = Reader.openBuffer(asnDbBuffer);
+// const countryDb = Reader.openBuffer(countryDbBuffer);
 
 const app = express();
 
