@@ -29,7 +29,8 @@ app.get('/locate',
             countryName: cityResponse['country']['names']['en'],
             cityName: cityResponse['city']['names']['en'],
             latitude: cityResponse['location']['latitude'],
-            longitude: cityResponse['location']['longitude']
+            longitude: cityResponse['location']['longitude'],
+            v: 'n'
         }
         res.status(200).json(result);
 });
