@@ -2,14 +2,12 @@
 require('dotenv').config({ path: path.join(__dirname, '.env') });
 const express = require('express')
 const fs = require('fs');
-const Reader = require('@maxmind/geoip2-node').Reader;
-const validator = require('fluent-validator');
+const reader = require('maxmind');
 
 console.log(process.env.GEODB_CITY);
 console.log(process.env.GEODB_ASN);
 console.log(process.env.GEODB_COUNTRY);
 
-const cityDb = Reader.open(process.env.GEODB_CITY);
 const app = express();
 
 const port = process.env.PORT || 80;
@@ -20,12 +18,13 @@ app.get('/ping', (req, res) => {
 
 app.get('/locate',
     async (req, res) => {
-        const isValid = validator().validate(req.query.ip).isIP().check();
-        if (!isValid) {
+        const cityDb = await reader.open(process.env.GEODB_CITY);
+        if (!reader.validate(req.query.ip)) {
             res.status(400).send('bad ip');
             return;
         }
-        const cityResponse = (await cityDb).city(req.query.ip);
+        const cityResponse = cityDb.get(req.query.ip);
+        console.log(cityResponse);
         const result = {
             countryName: cityResponse['country']['names']['en'],
             ...cityResponse['traits'],
