@@ -13,6 +13,11 @@ const cityDb = new reader.Reader(cityDbBuffer);
 
 const app = express();
 
+const id = 'v_' + 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
+    return v.toString(16);
+});
+
 const port = process.env.PORT || 80;
 
 app.get('/ping', (req, res) => {
@@ -32,7 +37,7 @@ app.get('/locate',
             cityName: cityResponse['city']['names']['en'],
             latitude: cityResponse['location']['latitude'],
             longitude: cityResponse['location']['longitude'],
-            v: 'n'
+            v: id
         }
         res.status(200).json(result);
 });
