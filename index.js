@@ -24,10 +24,9 @@ app.get('/locate',
             return;
         }
         const cityResponse = cityDb.get(req.query.ip);
-        console.log(cityResponse);
         const result = {
+            ipAddress: req.query.ip,
             countryName: cityResponse['country']['names']['en'],
-            ...cityResponse['traits'],
             cityName: cityResponse['city']['names']['en'],
             latitude: cityResponse['location']['latitude'],
             longitude: cityResponse['location']['longitude']
