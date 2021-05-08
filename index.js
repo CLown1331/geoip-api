@@ -8,6 +8,9 @@ console.log(process.env.GEODB_CITY);
 console.log(process.env.GEODB_ASN);
 console.log(process.env.GEODB_COUNTRY);
 
+const cityDbBuffer = fs.readFileSync(process.env.GEODB_CITY);
+const cityDb = new reader.Reader(cityDbBuffer);
+
 const app = express();
 
 const port = process.env.PORT || 80;
@@ -18,7 +21,6 @@ app.get('/ping', (req, res) => {
 
 app.get('/locate',
     async (req, res) => {
-        const cityDb = await reader.open(process.env.GEODB_CITY);
         if (!reader.validate(req.query.ip)) {
             res.status(400).send('bad ip');
             return;
